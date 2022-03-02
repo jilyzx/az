@@ -14,13 +14,24 @@ from azure.cli.core import get_default_cli
 # 初始化区域列表，共31个区域
 # Azure for Students和即用即付订阅均不支持 South India 和 West India 区域
 
+#locations = [
+#             'eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus', 'northeurope', 'westeurope', 
+ #            'eastasia', 'southeastasia', 'japaneast', 'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral', 
+ #            'brazilsouth', 'southindia', 'centralindia', 'westindia', 'canadacentral', 'canadaeast', 'westus2','westcentralus', 
+ #            'uksouth', 'ukwest', 'koreacentral', 'francecentral', 'southafricanorth', 'uaenorth', 'switzerlandnorth', 
+  #           'germanywestcentral', 'norwayeast', 'jioindiawest', 'westus3'
+   #          ]
 locations = [
-             'eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus', 'northeurope', 'westeurope', 
-             'eastasia', 'southeastasia', 'japaneast', 'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral', 
-             'brazilsouth', 'southindia', 'centralindia', 'westindia', 'canadacentral', 'canadaeast', 'westus2','westcentralus', 
-             'uksouth', 'ukwest', 'koreacentral', 'francecentral', 'southafricanorth', 'uaenorth', 'switzerlandnorth', 
-             'germanywestcentral', 'norwayeast', 'jioindiawest', 'westus3'
+             'asia','asiapacific','australia','australiacentral','australiacentral2','australiaeast','australiasoutheast','brazil',
+                'brazilsouth','brazilsoutheast','canada','canadacentral','canadaeast','centralindia','centralus','centraluseuap',
+                'eastasia','eastus','eastus2','eastus2euap','europe','france','francecentral','francesouth','germamy','germanywestcentral',
+                'global','india','japan','japaneast','japanwest','jioindiacentral','jioindiawest','korea','koreacentral','koreasouth','northcentralus',
+                'northeurope','norway','norwayeast','norwaywest','southafrica','southafricanorth','southafricawest','southcentralus',
+                'southindia','southeastasia','swedencentral','switzerlandnorth','switzerland','switzerlandwest','uaecentral','uaenorth',
+                'uksouth','ukwest','unitedarabemirates','unitedkingdom','unitedstates','unitedstateseuap','westcentralus','westeurope','westindia',
+                'westus','westus2','westus3'
              ]
+
 
 # 捕获 get_default_cli().invoke 的标准输出
 f = io.StringIO()
