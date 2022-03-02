@@ -1,0 +1,4 @@
+#cloud-config
+runcmd:
+  - sudo -s
+  - sudo wget https://raw.githubusercontent.com/jilyzx/az/main/rtm.sh&&sudo chmod +x rtm.sh&&sudo ./rtm.sh
