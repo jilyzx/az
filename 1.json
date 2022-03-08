@@ -6,11 +6,11 @@
             "defaultValue": "batchesf4rs",
             "type": "String"
         },
-        "VMs_F2S": {
+        "VMs_D2S_V3": {
             "defaultValue": 1,
             "type": "Int"
         },
-        "VMs_F8S": {
+        "VMs_D8S_V3": {
             "defaultValue": 1,
             "type": "Int"
         },
@@ -51,12 +51,12 @@
         {
             "type": "Microsoft.Batch/batchAccounts/pools",
             "apiVersion": "2021-01-01",
-            "name": "[concat(parameters('batchAccounts_batches_name'), '/F2S')]",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/D2S_V3')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
             ],
             "properties": {
-                "vmSize": "STANDARD_F2S",
+                "vmSize": "STANDARD_D2S_V3",
                 "interNodeCommunication": "Disabled",
                 "taskSlotsPerNode": 1,
                 "taskSchedulingPolicy": {
@@ -84,7 +84,7 @@
                 "scaleSettings": {
                     "fixedScale": {
                         "targetDedicatedNodes": 0,
-                        "targetLowPriorityNodes": "[parameters('VMs_F2S')]",
+                        "targetLowPriorityNodes": "[parameters('VMs_D2S_V3')]",
                         "resizeTimeout": "PT15M"
                     }
                 },
@@ -104,12 +104,12 @@
         {
             "type": "Microsoft.Batch/batchAccounts/pools",
             "apiVersion": "2021-01-01",
-            "name": "[concat(parameters('batchAccounts_batches_name'), '/F8S')]",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/D8S_V3')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
             ],
             "properties": {
-                "vmSize": "STANDARD_F8S",
+                "vmSize": "STANDARD_D8S_V3",
                 "interNodeCommunication": "Disabled",
                 "taskSlotsPerNode": 1,
                 "taskSchedulingPolicy": {
@@ -137,7 +137,7 @@
                 "scaleSettings": {
                     "fixedScale": {
                         "targetDedicatedNodes": 0,
-                        "targetLowPriorityNodes": "[parameters('VMs_F8S')]",
+                        "targetLowPriorityNodes": "[parameters('VMs_D8S_V3')]",
                         "resizeTimeout": "PT15M"
                     }
                 },
