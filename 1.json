@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "batchAccounts_batches_name": {
-            "defaultValue": "batche21SCArs",
+            "defaultValue": "batchesf4rs",
             "type": "String"
         },
         "VMs_D2S_V3": {
@@ -83,8 +83,8 @@
                 },
                 "scaleSettings": {
                     "fixedScale": {
-                        "targetDedicatedNodes": 0,
-                        "targetLowPriorityNodes": "[parameters('VMs_D2S_V3')]",
+                        "targetDedicatedNodes": "[parameters('VMs_D2S_V3')]",
+                        "targetLowPriorityNodes": 0,
                         "resizeTimeout": "PT15M"
                     }
                 },
@@ -136,8 +136,8 @@
                 },
                 "scaleSettings": {
                     "fixedScale": {
-                        "targetDedicatedNodes": 0,
-                        "targetLowPriorityNodes": "[parameters('VMs_D8S_V3')]",
+                        "targetDedicatedNodes": "[parameters('VMs_D8S_V3')]",
+                        "targetLowPriorityNodes": 0,
                         "resizeTimeout": "PT15M"
                     }
                 },
