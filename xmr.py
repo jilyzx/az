@@ -19,14 +19,7 @@ batch_defaul_name = 'batchasfrg'
 
 
 #登录信息#
-login_date = [
-	
-	 'login',
-    '-u', f'{username}',
-    '-p', f'{password}',
-    '--query',
-	'{"订阅状态":[].state}'
-]
+
 
 #资源组信息#
 vm_list_date = [
@@ -49,7 +42,7 @@ def get_cli(date):
 
 def batch_create_command(a,b):
 	create_command = [
-		'deployment', 'group','create', '--resource-group', f'{group_name}', '--template-file','C:\\Users\\Jily\\Desktop\\az-xmr\\1.json',
+		'deployment', 'group','create', '--resource-group', f'{group_name}', '--template-file','/home/fern/1.json',
 		'--parameters',f'location={a}','--parameters',f'batchAccounts_batches_name={b}','--query','[].providers.provisioningState'
 	]
 
