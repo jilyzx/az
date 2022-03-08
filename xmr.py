@@ -5,8 +5,8 @@ from contextlib import redirect_stdout
 from azure.cli.core import get_default_cli
 
 
-username = 'w38ojudp@arthurshillprimaryschools.co.uk'
-password = '14dV54iTtC'
+#username = 'w38ojudp@arthurshillprimaryschools.co.uk'
+#password = '14dV54iTtC'
 group_name = 'az'
 locations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'southcentralus', 'northeurope', 'westeurope', 
 			'eastasia', 'southeastasia', 'japaneast', 'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral', 'brazilsouth',
