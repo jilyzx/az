@@ -12,7 +12,7 @@ locations = ['eastus', 'eastus2', 'westus', 'centralus', 'northcentralus', 'sout
 			'eastasia', 'southeastasia', 'japaneast', 'japanwest', 'australiaeast', 'australiasoutheast', 'australiacentral', 'brazilsouth',
             'southindia', 'centralindia', 'westindia', 'canadacentral', 'canadaeast', 'westus2', 'westcentralus', 
             'uksouth', 'ukwest', 'koreacentral', 'francecentral', 'southafricanorth', 'uaenorth', 'switzerlandnorth', 
-            'germanywestcentral', 'norwayeast', 'jioindiawest', 'westus3']
+            'germanywestcentral', 'norwayeast', 'westus3']
 
 batch_defaul_name = 'batchasfrg'
 
