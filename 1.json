@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "batchAccounts_batches_name": {
-            "defaultValue": "batchesf4rs",
+            "defaultValue": "batche21SCArs",
             "type": "String"
         },
         "VMs_D2S_V3": {
