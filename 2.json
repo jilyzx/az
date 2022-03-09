@@ -10,7 +10,7 @@
             "defaultValue": 1,
             "type": "Int"
         },
-        "VMs_D8S_V3": {
+        "VMs_D4S_V3": {
             "defaultValue": 1,
             "type": "Int"
         },
@@ -104,14 +104,14 @@
         {
             "type": "Microsoft.Batch/batchAccounts/pools",
             "apiVersion": "2021-01-01",
-            "name": "[concat(parameters('batchAccounts_batches_name'), '/D8S_V3')]",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/D4S_V3')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
             ],
             "properties": {
-                "vmSize": "STANDARD_D8S_V3",
+                "vmSize": "STANDARD_D4S_V3",
                 "interNodeCommunication": "Disabled",
-                "taskSlotsPerNode": 1,
+                "taskSlotsPerNode": 2,
                 "taskSchedulingPolicy": {
                     "nodeFillType": "Pack"
                 },
@@ -136,7 +136,7 @@
                 },
                 "scaleSettings": {
                     "fixedScale": {
-                        "targetDedicatedNodes": "[parameters('VMs_D8S_V3')]",
+                        "targetDedicatedNodes": "[parameters('VMs_D4S_V3')]",
                         "targetLowPriorityNodes": 0,
                         "resizeTimeout": "PT15M"
                     }
