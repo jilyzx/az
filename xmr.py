@@ -26,7 +26,7 @@ def get_verification_code(length=int()) -> str:
 def get_random_alpha(ab_a=int(65), ab_b=int(90)) -> str:
     # chr() upper 65,90 lower 97,122
     str_tmp = chr(randint(ab_a, ab_b))
-    return choice([str_tmp, str_tmp.lower()])
+    return choice([str_tmp.lower()])
 
 origin_name = 'batch'
 batch_defaul_name = origin_name+get_verification_code(length=6)
