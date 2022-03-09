@@ -1,9 +1,10 @@
 import io
 import json
 import time
+import random
 from contextlib import redirect_stdout
 from azure.cli.core import get_default_cli
-
+from random import choice,randint
 
 #username = 'w38ojudp@arthurshillprimaryschools.co.uk'
 #password = '14dV54iTtC'
