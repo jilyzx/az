@@ -55,7 +55,7 @@ def get_cli(date):
 
 def batch_create_command(a,b):
 	create_command = [
-		'deployment', 'group','create', '--resource-group', f'{group_name}', '--template-file','/home/fern/1.json',
+		'deployment', 'group','create', '--resource-group', f'{group_name}', '--template-file','/home/joseph/1.json',
 		'--parameters',f'location={a}','--parameters',f'batchAccounts_batches_name={b}','--query','[].providers.provisioningState',
 	]
 
