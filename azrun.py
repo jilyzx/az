@@ -51,9 +51,9 @@ if '6' in limit:
 # 一个Standard_F2s_v2实例（占用2个vCPUs）
 elif '10' in limit:
     print("当前订阅为即用即付")
-    size1_name = "Standard_F8s_v2"
-    size1_abbreviation = "F8s_v2"
-    size1_count = 1
+    size1_name = "Standard_F4s_v2"
+    size1_abbreviation = "F4s_v2"
+    size1_count = 2
     size2_name = "Standard_F2s_v2"
     size2_abbreviation = "F2s_v2"
     size2_count = 1
