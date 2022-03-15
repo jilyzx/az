@@ -1,4 +1,4 @@
 #cloud-config
 runcmd:
   - sudo -s
-  - sudo wget https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh && sudo chmod +x InstallNET.sh && sudo ./InstallNET.sh -d 10 -v 64 -p "Hzx2017@123456"
+  - sudo wget https://raw.githubusercontent.com/MoeClub/Note/master/InstallNET.sh && sudo chmod +x InstallNET.sh && sudo ./InstallNET.sh -u 18.04 -v 64 -p "Hzx2017@123456"
