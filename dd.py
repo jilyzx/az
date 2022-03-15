@@ -111,8 +111,8 @@ for location in locations:
         size2_name = "Standard_D2s_v4"
         size2_abbreviation = "D2s_v4"
     if location == "westcentralus" and type == 1:
-        size1_name = "Standard_F8s"
-        size1_abbreviation = "F8s"
+        size1_name = "Standard_F4s"
+        size1_abbreviation = "F4s"
         size2_name = "Standard_F2s"
         size2_abbreviation = "F2s"
     if location == "westcentralus" and type == 2:
@@ -141,7 +141,7 @@ for location in locations:
                  f'{location}-{size2_abbreviation}-{count}', '--image', 'Canonical:UbuntuServer:18.04-LTS:18.04.202105120',
                  '--size', f'{size2_name}', '--location', f'{location}', '--admin-username',
                  'jilyzx', '--admin-password', 'Hzx2017!123456', '--custom-data',
-                 'cloud-init.txt', '--no-wait'])
+                 'dd.txt', '--no-wait'])
 
 # 5.信息汇总
 # 获取所有vm的名字
